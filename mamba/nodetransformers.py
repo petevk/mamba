@@ -140,7 +140,13 @@ class TransformToSpecsNodeTransformer(ast.NodeTransformer):
         return result
 
     def _generate_argument(self, name):
-        return ast.arguments(args=[ast.Name(id=name, ctx=ast.Param())], vararg=None, kwarg=None, defaults=[])
+        return ast.arguments(
+            args=[ast.Name(id=name, ctx=ast.Param())],
+            vararg=None,
+            posonlyargs=[],
+            kwarg=None,
+            defaults=[],
+        )
 
     def _transform_to_hook(self, node, name):
         when = self._context_expr_for(node).attr
@@ -202,6 +208,7 @@ class TransformToSpecsPython3NodeTransformer(TransformToSpecsNodeTransformer):
             args=[ast.arg(arg=name, annotation=None)],
             vararg=None,
             kwonlyargs=[],
+            posonlyargs=[],
             kw_defaults=[],
             kwarg=None,
             defaults=[]
